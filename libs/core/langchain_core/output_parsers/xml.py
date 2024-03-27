@@ -3,6 +3,7 @@ from typing import Any, AsyncIterator, Dict, Iterator, List, Optional, Union
 from xml.etree import ElementTree as ET
 from xml.etree.ElementTree import TreeBuilder
 
+from langchain_core.exceptions import OutputParserException
 from langchain_core.messages import BaseMessage
 from langchain_core.output_parsers.transform import BaseTransformOutputParser
 from langchain_core.runnables.utils import AddableDict
