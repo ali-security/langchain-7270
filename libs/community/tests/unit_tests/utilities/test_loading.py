@@ -94,3 +94,21 @@ def test_failed_request(mocked_responses: responses.RequestsMock) -> None:
     with pytest.raises(ValueError, match=re.compile("Could not find file at .*")):
         try_load_from_hub(f"lc://{path}", loader, "chains", {"json"})
     loader.assert_not_called()
+
+
+def test_path_traversal1() -> None:
+    """Test that a path traversal attack is prevented."""
+    path = "lc://chains/../../../../../../../../../it.json"
+    loader = Mock()
+
+    with pytest.raises(ValueError):
+        try_load_from_hub(path, loader, "chains", {"json"})
+
+
+def test_path_traversal2() -> None:
+    """Test that a path traversal attack is prevented."""
+    path = "lc@ANYTHING/../../../../../../../../..://chains/it.json"
+    loader = Mock()
+
+    with pytest.raises(ValueError):
+        try_load_from_hub(path, loader, "chains", {"json"})

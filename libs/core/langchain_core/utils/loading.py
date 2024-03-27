@@ -42,7 +42,10 @@ def try_load_from_hub(
     # when working with URLs that use forward slashes as the path separator.
     # Instead, use PurePosixPath to ensure that forward slashes are used as the
     # path separator, regardless of the operating system.
-    full_url = urljoin(URL_BASE.format(ref=ref), PurePosixPath(remote_path).__str__())
+    url_base = URL_BASE.format(ref=ref)
+    full_url = urljoin(url_base, PurePosixPath(remote_path).__str__())
+    if not full_url.startswith(url_base):
+        raise ValueError(f"Invalid hub path: {path}")
 
     r = requests.get(full_url, timeout=5)
     if r.status_code != 200:
