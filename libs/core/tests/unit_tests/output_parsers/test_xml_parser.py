@@ -5,6 +5,7 @@ from xml.etree.ElementTree import ParseError
 import pytest
 
 from langchain_core.output_parsers.xml import XMLOutputParser
+from langchain_core.exceptions import OutputParserException
 
 DEF_RESULT_ENCODING = """<?xml version="1.0" encoding="UTF-8"?>
  <foo>
