@@ -1,4 +1,5 @@
 """Test XMLOutputParser"""
+
 from typing import AsyncIterator
 from xml.etree.ElementTree import ParseError
 
